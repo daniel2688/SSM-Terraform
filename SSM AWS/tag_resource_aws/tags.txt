@@ -1,0 +1,40 @@
+
+Ingresar credenciales AWS access keys:
+---------------------------------------
+aws configure set aws_access_key_id TU_ACCESS_KEY_ID
+aws configure set aws_secret_access_key TU_SECRET_ACCESS_KEY
+aws configure set default.region TU_REGION
+
+
+Para enumerar los nodos administrados en su cuenta AWS:
+-------------------------------------------------------
+aws ssm describe-instance-information          # Describe los nodos administrados por SSM
+
+
+Etiquetar nodos administrados por SSSM AWS:
+-------------------------------------------
+aws ssm add-tags-to-resource \
+    --resource-type "ManagedInstance" \
+    --resource-id "instance-id-1" \            # Agregar el nodo administrado que empieza con "mi-xxxxxxxxxxxxxxx"
+    --tags "Key=tag-key,Value=tag-value"       # Agregar los tags correspondiente       
+
+
+aws ssm add-tags-to-resource \
+    --resource-type "ManagedInstance" \
+    --resource-id "instance-id-2" \            
+    --tags "Key=tag-key,Value=tag-value"            
+
+
+Para validar las etiquetas de los nodos:
+----------------------------------------
+aws ssm list-tags-for-resource \
+    --resource-type "ManagedInstance" \
+    --resource-id "instance-id"                # Agregar el nodo administrado que empieza con "mi-xxxxxxxxxxxxxxx"
+
+
+Eliminación de etiquetas de nodos administrados:
+------------------------------------------------
+aws ssm remove-tags-from-resource \
+    --resource-type "ManagedInstance" \
+    --resource-id "instance-id" \
+    --tag-key "tag-key"                        # Agregar el valor de dicha etiqueta para su eliminación

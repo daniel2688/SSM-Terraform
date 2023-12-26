@@ -1,0 +1,23 @@
+Para instalar SSM Agent en máquinas que no son EC2 en un entorno híbrido y multinube:
+-------------------------------------------------------------------------------------
+
+mkdir /tmp/ssm
+
+curl https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm -o /tmp/ssm/amazon-ssm-agent.rpm
+
+sudo yum install -y /tmp/ssm/amazon-ssm-agent.rpm
+
+sudo stop amazon-ssm-agent  o sudo systemctl stop amazon-ssm-agent
+
+sudo -E amazon-ssm-agent -register -code QjIXOX+ro9ui8BI4t80Q -id 4ad6b312-be90-4385-9e2d-94c4c2376478 -region us-east-1
+
+# Si ya se encuentra registrado el nodo con una activacion, se tendra que desregistrar con el siguiente comando:
+---------------------------------------------------------------------------------------------------------------
+
+echo "yes" | sudo amazon-ssm-agent -register -code QjIXOX+ro9ui8BI4t80Q -id 4ad6b312-be90-4385-9e2d-94c4c2376478 -region us-east-1 && sudo systemctl restart amazon-ssm-agent
+
+Luego la salida muestra:
+--------------------------
+ Successfully registered the instance with AWS SSM using Managed instance-id: mi-0cb3546623ae4b67d
+
+sudo start amazon-ssm-agent

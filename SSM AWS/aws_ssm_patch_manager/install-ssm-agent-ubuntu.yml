@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Descargar e instalar el agente SSM
+      command: "wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb && dpkg -i amazon-ssm-agent.deb && systemctl start amazon-ssm-agent"
+
+
+# Ejecutar el playbook:
+
+ansible-playbook -i localhost, install-ssm-agent.yml
+
+# Con este comando se verifica el estado del SSM agent:
+
+sudo systemctl status amazon-ssm-agent
